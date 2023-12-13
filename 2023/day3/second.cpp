@@ -21,7 +21,7 @@ bool around_point(int r, int c)
     return true;
 }
 
-int find_num(int r, int c)
+int find_num(int r, int c, bool one_last)
 {
     num = "";
     char prev = var_matrix[r][c - 1];
@@ -60,6 +60,8 @@ int find_num(int r, int c)
 
     num = var_matrix[r][c];
     mul *= stoi(num);
+    if(one_last)
+        return c+1;
     return c;
 }
 void operation(int r, int c, bool check)
@@ -79,7 +81,8 @@ void operation(int r, int c, bool check)
                 char symbol = var_matrix[r + dr][c + dc];
                 if (isdigit(symbol))
                 {
-                    dc =abs( find_num(r + dr, c + dc) - (c+dc));
+
+                    dc =abs( find_num(r + dr, c + dc, dc==1) - (c+dc));
                 }
             }
         }
